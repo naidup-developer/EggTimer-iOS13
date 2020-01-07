@@ -14,20 +14,24 @@ class ViewController: UIViewController {
     var mediumCooked = 8
     var hardCooked = 12
     
+    var eggTimes = ["Soft" : 5, "Medium" : 8, "Hard" : 12]
+    
     @IBAction func onClick(_ sender: UIButton)
     {
-        switch sender.currentTitle {
-        case "Soft":
-            print(softCooked)
-            break
-        case "Medium":
-            print(mediumCooked)
-            break
-        case "Hard":
-            print(hardCooked)
-            break
-        default:
-            break
-        }
+        print(eggTimes[sender.currentTitle!]!)
+        
+//        switch sender.currentTitle {
+//        case "Soft":
+//            print(eggTimes.index(forKey: "soft") as Any)
+//            break
+//        case "Medium":
+//            print(eggTimes.index(forKey: "medium") as Any)
+//            break
+//        case "Hard":
+//            print(eggTimes.index(forKey: "hard") as Any)
+//            break
+//        default:
+//            break
+//        }
     }
 }
