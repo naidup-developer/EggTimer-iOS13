@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
+    
+    @IBOutlet weak var progress: UIProgressView!
     
     @IBOutlet weak var label: UILabel!
     
@@ -19,10 +22,25 @@ class ViewController: UIViewController {
     
     var timer = Timer()
     
+    var totalTime = 0
+    var secondspassed = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        progress.progress = 0.0
+    }
+    
+    
+    
     @IBAction func onClick(_ sender: UIButton)
     {
+        
+        
         timer.invalidate()
-        secondsRemaining = eggTimes[sender.currentTitle!]
+        totalTime = eggTimes[sender.currentTitle!]!
+        progress.progress = 0.0
+        secondspassed = 0
+        label.text = sender.currentTitle
         
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true )
         
@@ -32,11 +50,14 @@ class ViewController: UIViewController {
     
     @objc func UpdateTimer() 
     {
-        if secondsRemaining! > 0
+        if secondspassed < totalTime
         {
-            print("\(secondsRemaining ?? 0) Seconds Remaining")
-            label.text = "wait for \(secondsRemaining ?? 0) Seconds"
-            secondsRemaining! -= 1
+            secondspassed += 1
+            let percentageProgress = Float(secondspassed) / Float(totalTime)
+            
+            print(percentageProgress)
+            progress.progress = percentageProgress
+            
         }else
         {
             timer.invalidate()
