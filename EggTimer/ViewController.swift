@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    
+    var player : AVAudioPlayer!
     @IBOutlet weak var progress: UIProgressView!
     
     @IBOutlet weak var label: UILabel!
@@ -35,14 +35,15 @@ class ViewController: UIViewController {
     @IBAction func onClick(_ sender: UIButton)
     {
         
-        
+        //player.stop()
         timer.invalidate()
         totalTime = eggTimes[sender.currentTitle!]!
         progress.progress = 0.0
         secondspassed = 0
         label.text = sender.currentTitle
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true )
+       timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true )
+        
         
         
         
@@ -62,6 +63,11 @@ class ViewController: UIViewController {
         {
             timer.invalidate()
             label.text = "Done..!!!"
+            
+            //MARK:- Audio Play
+            let url = Bundle.main.url(forResource: "alarm_sound", withExtension: ".mp3")
+            player = try! AVAudioPlayer(contentsOf: url!)
+            player.play()
         }
     }
 }
